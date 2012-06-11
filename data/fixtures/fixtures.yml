@@ -1,0 +1,62 @@
+Category:
+  video:
+    Translation:
+      pt_br:
+        name: Vídeo
+      en:
+        name: Video
+  telefonia:
+    Translation:
+      pt_br:
+        name: Telefonia
+      en:
+        name: Telephony
+  informatica:
+    Translation:
+      pt_br:
+        name: Computers
+      en:
+        name: Informática
+
+Product:
+  -
+    is_active: 0
+    Category: video
+    Translation:
+      pt_br:
+        name: DVD do Homem Aranha
+        description: |
+          Essa é uma descrição em pt_br.
+        price: 10.99
+      en:
+        name: Spider-man DVD
+        description: |
+          This is a description in en.
+        price: 2.99
+  -
+    is_active: 1
+    Category: video
+    Translation:
+      pt_br:
+        name: Aparelho de DVD
+        description: |
+          Essa é uma descrição em pt_br.
+        price: 50.99
+      en:
+        name: DVD Player
+        description: |
+          This is a description in en.
+        price: 15.50
+  -
+    Category: telefonia
+    Translation:
+      pt_br:
+        name: Celular do João
+        description: |
+          Essa é uma descrição bizarra em pt_br.
+        price: 543.99
+      en:
+        name: John's Mobile
+        description: |
+          This is a bizarre description in en.
+        price: 123.50

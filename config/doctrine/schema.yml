@@ -1,0 +1,35 @@
+Category:
+  actAs:
+    Timestampable: ~
+    I18n:
+      fields: [name, description]
+      actAs:
+        Sluggable:
+          fields: [name]
+          uniqueBy: [lang, name]
+          canUpdate: true
+  columns:
+    name: { type: string(255), notnull: true, unique: true }
+
+Product:
+  actAs:
+    Timestampable: ~
+    I18n:
+      fields: [name, description, price]
+      actAs:
+        Sluggable:
+          fields: [name]
+          uniqueBy: [lang, name]
+          canUpdate: true
+  columns:
+    name: { type: string(255), notnull: true, unique: true }
+    description: clob
+    price: { type: 'decimal(12, 2)', default: '0.00'}
+    is_active: { type: boolean, default: 1 }
+    category_id: bigint
+  relations:
+    Category:
+      local: category_id
+      class: Category
+      foreignAlias: Products
+      onDelete: 'SET NULL'

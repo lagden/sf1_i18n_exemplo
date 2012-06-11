@@ -1,14 +1,44 @@
-cache/*
-log/*
+# Framework
+log
+cache
+data/*
+lib/migration
+lib/vendor/symfony/*
+lib/*/doctrine/base/*
+lib/*/doctrine/sfDoctrineGuardPlugin/base/*
+test/resources/convert/*
+web/sf
+web/test/*
+web/atividades/*
+web/.sass-cache
 web/uploads/*
+web/tiny/*
+tmp/*
 config/databases.yml
-config/propel.ini
-data/sql/*
-lib/filter/doctrine/base/Base*
-lib/filter/doctrine/*Plugin/base/Base*
-lib/form/doctrine/base/Base*
-lib/form/doctrine/*Plugin/base/Base*
-lib/model/doctrine/base/Base*
-lib/model/doctrine/*Plugin/base/Base*
-lib/model/om/*
-lib/model/map/*
+
+# Preserve
+!/web/uploads/.htaccess
+!/data/fixtures
+
+# Cpanel
+cgi-bin
+error_log
+
+# OS crap
+.DS_Store
+thumbs.db
+.*.swp
+*.tmproj
+*.mwb
+*.mwb.bak
+
+# SCM files
+.arch-params
+.bzr
+_darcs
+.hg
+.monotone
+.svn
+
+# SQL
+*.sql

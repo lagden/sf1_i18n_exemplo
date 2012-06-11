@@ -1,0 +1,21 @@
+homepage:
+  url:   /
+  param: { module: default, action: index }
+
+categoria:
+  url:     /:sf_culture/categoria/:slug.:sf_format
+  param:   { module: categoria, action: show, sf_format: html }
+  requirements:
+    sf_format: (?:html|json)
+
+produto:
+  url:     /:sf_culture/produto/:slug.:sf_format
+  param:   { module: produto, action: index, sf_format: html }
+  requirements:
+    sf_format: (?:html|json)
+
+produto_show:
+  url:     /:sf_culture/produto/:slug.:sf_format
+  param:   { module: produto, action: show, sf_format: html }
+  requirements:
+    sf_format: (?:html|json)
