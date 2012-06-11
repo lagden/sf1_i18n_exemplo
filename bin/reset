@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+
+THIS=$(basename $0)
+DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+cd $DIR
+cd ..
+CURR_FOLDER=`pwd`
+
+# Go
+cd $CURR_FOLDER
+
+read -s -n1 -p "Isso irá apagar todos os dados!! Tem certeza? (y/n): " keypress
+echo;
+
+if [[ $keypress == "y" ]]; then
+    `rm -rf web/uploads/*`
+    `rm -rf web/tiny/*`
+    `rm -rf web/test/*`
+    `rm -rf log/*`
+    `rm -rf cache/*`
+    `rm -rf tmp/*`
+    echo "Folders are clean."
+
+    ./bin/setup.sh -f
+    
+    `curl "http://dummyimage.com/950x350/000099/ffffff.png&text=Circuitos+das+Artes" -o "web/test/high.png"`
+    `curl "http://dummyimage.com/800x600/009900/ffffff.png&text=Circuitos+das+Artes" -o "web/test/geral.png"`
+    
+    for i in {1..3}
+    do
+        `cp web/test/geral.png web/test/act_$i.png`
+        `cp web/test/high.png web/test/actHigh_$i.png`
+        `cp web/test/high.png web/test/destaque_$i.png`
+    done
+    
+    `rm -f web/test/geral.png`
+    `chmod 777 web/test/*.*`
+
+    CMD="./symfony"
+    if [ -e "/usr/local/bin/sf" ]
+        then
+        CMD=sf
+    fi
+    
+    $CMD cc -q
+    $CMD doctrine:clean-model-files --no-confirmation
+    $CMD doctrine:build --all --and-load --env=dev --no-confirmation
+fi
+
+exit

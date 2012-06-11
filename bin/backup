@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Usage: ./backup.sh user password database
+
+bkp="$(date +%m%d%H%M%Y%S).sql"
+`mysqldump -u"$1" -p"$2" --add-drop-table "$3" > $bkp`
+
+exit
