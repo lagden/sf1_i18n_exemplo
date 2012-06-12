@@ -1,21 +1,23 @@
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: home, action: index }
 
-categoria:
-  url:     /:sf_culture/categoria/:slug.:sf_format
-  param:   { module: categoria, action: show, sf_format: html }
+localized_homepage:
+  url:   /:sf_culture/
+  param: { module: home, action: index }
   requirements:
-    sf_format: (?:html|json)
+    sf_culture: (?:br|en)
 
-produto:
-  url:     /:sf_culture/produto/:slug.:sf_format
-  param:   { module: produto, action: index, sf_format: html }
+change_language:
+  url:   /change_language
+  param: { module: home, action: changeLanguage }
+
+categoria_show:
+  url:     /:sf_culture/categoria/:slug.:sf_format
+  param:   { module: home, action: showCategoria, sf_format: html }
   requirements:
     sf_format: (?:html|json)
 
 produto_show:
-  url:     /:sf_culture/produto/:slug.:sf_format
-  param:   { module: produto, action: show, sf_format: html }
-  requirements:
-    sf_format: (?:html|json)
+  url:     /:sf_culture/produto/:slug
+  param:   { module: produto, action: show }

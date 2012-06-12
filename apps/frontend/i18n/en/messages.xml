@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="en" datatype="plaintext" original="messages" date="2012-06-12T01:53:35Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>e %count% mais...</source>
+        <target>and %count% more...</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Categoria</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>detalhe</source>
+        <target>detail</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Categoria não encontrada</source>
+        <target>Category not found</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -9,7 +9,7 @@ Category:
           uniqueBy: [lang, name]
           canUpdate: true
   columns:
-    name: { type: string(255), notnull: true, unique: true }
+    name: { type: string(255), notnull: true }
 
 Product:
   actAs:
@@ -22,7 +22,7 @@ Product:
           uniqueBy: [lang, name]
           canUpdate: true
   columns:
-    name: { type: string(255), notnull: true, unique: true }
+    name: { type: string(255), notnull: true }
     description: clob
     price: { type: 'decimal(12, 2)', default: '0.00'}
     is_active: { type: boolean, default: 1 }
