@@ -23,7 +23,7 @@ class ProductTable extends Doctrine_Table
         return $q;
     }
 
-    public function findOneBySlugAndCulture($slug, $culture = 'br', Doctrine_Query $q = null)
+    public function findOneBySlugAndCulture($slug, $culture = 'pt_BR', Doctrine_Query $q = null)
     {
         if(null === $q)$q = static::getListQuery();
         $alias = $q->getRootAlias();
@@ -31,6 +31,18 @@ class ProductTable extends Doctrine_Table
         $q->leftJoin("{$alias}.Translation t")
             ->andWhere('t.lang = ?', $culture)
             ->andWhere('t.slug = ?', $slug);
+
+        return $q;
+    }
+
+    public function findOneByRouteAndCulture($route, $culture = 'pt_BR', Doctrine_Query $q = null)
+    {
+        if(null === $q)$q = static::getListQuery();
+        $alias = $q->getRootAlias();
+
+        $q->leftJoin("{$alias}.Translation t")
+            ->andWhere("t.lang = ?", $culture)
+            ->andWhere("{$alias}.slug_route = ?", $route);
 
         return $q;
     }

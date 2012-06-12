@@ -6,18 +6,18 @@ localized_homepage:
   url:   /:sf_culture/
   param: { module: home, action: index }
   requirements:
-    sf_culture: (?:br|en)
+    sf_culture: (?:pt_BR|en)
 
 change_language:
-  url:   /change_language
+  url:   /change_language/:path
   param: { module: home, action: changeLanguage }
 
 categoria_show:
-  url:     /:sf_culture/categoria/:slug.:sf_format
+  url:     /:sf_culture/categoria/:route.:sf_format
   param:   { module: home, action: showCategoria, sf_format: html }
   requirements:
     sf_format: (?:html|json)
 
 produto_show:
-  url:     /:sf_culture/produto/:slug
+  url:     /:sf_culture/produto/:route
   param:   { module: produto, action: show }

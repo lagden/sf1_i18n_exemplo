@@ -13,6 +13,6 @@ class produtoActions extends sfActions
     public function executeShow(sfWebRequest $request)
     {
         $culture = $this->getUser()->getCulture();
-        $this->product = Doctrine_Core::getTable('Product')->findOneBySlugAndCulture($request['slug'], $culture)->fetchOne();
+        $this->product = Doctrine_Core::getTable('Product')->findOneByRouteAndCulture($request['route'], $culture)->fetchOne();
     }
 }

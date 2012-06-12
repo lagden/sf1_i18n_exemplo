@@ -1,20 +1,33 @@
 Category:
   actAs:
+    Sluggable:
+          fields: [route]
+          name:  slug_route
+          unique: true
+          canUpdate: true
     Timestampable: ~
     I18n:
       fields: [name, description]
+      length: 5
       actAs:
         Sluggable:
           fields: [name]
           uniqueBy: [lang, name]
           canUpdate: true
   columns:
+    route: { type: string(255), notnull: true }
     name: { type: string(255), notnull: true }
 
 Product:
   actAs:
+    Sluggable:
+          fields: [route]
+          name:  slug_route
+          unique: true
+          canUpdate: true
     Timestampable: ~
     I18n:
+      length: 5
       fields: [name, description, price]
       actAs:
         Sluggable:
@@ -22,6 +35,7 @@ Product:
           uniqueBy: [lang, name]
           canUpdate: true
   columns:
+    route: { type: string(255), notnull: true }
     name: { type: string(255), notnull: true }
     description: clob
     price: { type: 'decimal(12, 2)', default: '0.00'}

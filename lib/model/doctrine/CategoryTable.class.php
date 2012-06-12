@@ -45,4 +45,16 @@ class CategoryTable extends Doctrine_Table
 
         return $q;
     }
+
+    public function findOneByRouteAndCulture($route, $culture = 'pt_BR', Doctrine_Query $q = null)
+    {
+        if(null === $q)$q = static::getListQuery();
+        $alias = $q->getRootAlias();
+
+        $q->leftJoin("{$alias}.Translation t")
+            ->andWhere("t.lang = ?", $culture)
+            ->andWhere("{$alias}.slug_route = ?", $route);
+
+        return $q;
+    }
 }

@@ -31,10 +31,13 @@ all:
     escaping_strategy:      true
     escaping_method:        ESC_SPECIALCHARS
 
+    # Compressed
+    compressed:             true
+
     # Enable the database manager
     use_database:           true
 
     i18n: true
     charset: utf-8
     standard_helpers: [Partial, Cache, I18N]
-    default_culture: br
+    default_culture: pt_BR

@@ -1,19 +1,22 @@
 Category:
   video:
+    route: video
     Translation:
-      br:
+      pt_BR:
         name: Vídeo
       en:
         name: Video
   telefonia:
+    route: telefonia
     Translation:
-      br:
+      pt_BR:
         name: Telefonia
       en:
         name: Telephony
   informatica:
+    route: informatica
     Translation:
-      br:
+      pt_BR:
         name: Informática
       en:
         name: Computers
@@ -22,8 +25,9 @@ Product:
   -
     is_active: 0
     Category: video
+    route: DVD do Homem Aranha
     Translation:
-      br:
+      pt_BR:
         name: DVD do Homem Aranha
         description: |
           Essa é uma descrição em br.
@@ -36,8 +40,9 @@ Product:
   -
     is_active: 1
     Category: video
+    route: Aparelho de DVD
     Translation:
-      br:
+      pt_BR:
         name: Aparelho de DVD
         description: |
           Essa é uma descrição em br.
@@ -49,8 +54,9 @@ Product:
         price: 15.50
   -
     Category: telefonia
+    route: Celular do João
     Translation:
-      br:
+      pt_BR:
         name: Celular do João
         description: |
           Essa é uma descrição bizarra em br.
@@ -60,3 +66,17 @@ Product:
         description: |
           This is a bizarre description in en.
         price: 123.50
+  -
+    Category: informatica
+    route: Disquete formatado
+    Translation:
+      pt_BR:
+        name: Disquete formatado
+        description: |
+          Essa é uma super descrição bacana em br.
+        price: 1.99
+      en:
+        name: Formatted Floppy disk
+        description: |
+          This is a super description pretty cool in en.
+        price: 0.99

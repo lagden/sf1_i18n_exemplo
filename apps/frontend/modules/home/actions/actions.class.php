@@ -10,6 +10,7 @@
 */
 class homeActions extends sfActions
 {
+    // Seta o idioma se não existir
     public function executeIndex(sfWebRequest $request)
     {
         $culture = $this->getUser()->getCulture();
@@ -18,7 +19,7 @@ class homeActions extends sfActions
         {
             if ($this->getUser()->isFirstRequest())
             {
-                $culture = $request->getPreferredCulture(array('br', 'en'));
+                $culture = $request->getPreferredCulture(array('pt_BR', 'en'));
                 $this->getUser()->setCulture($culture);
                 $this->getUser()->isFirstRequest(false);
             }
@@ -29,16 +30,26 @@ class homeActions extends sfActions
         $this->categories = Doctrine_Core::getTable('Category')->findAll($culture)->execute();
     }
 
+    // Troca o idioma
     public function executeChangeLanguage(sfWebRequest $request)
     {
         $culture = $this->getUser()->getCulture();
-        $this->getUser()->setCulture(($culture == 'br') ? 'en' : 'br');
-        return $this->redirect('localized_homepage');
+        $lang = ($culture == 'pt_BR') ? 'en' : 'pt_BR';
+        $this->getUser()->setCulture($lang);
+
+        // Redireciona para a mesma url
+        $path = base64_decode($request['path']);
+        $path = explode("/", $path);
+        $path[1] = $lang;
+        $path = $_SERVER['SCRIPT_NAME'] . join("/", $path);
+
+        return $this->redirect($path);
     }
 
+    // Mostra a Categoria e seus produtos
     public function executeShowCategoria(sfWebRequest $request)
     {
         $culture = $this->getUser()->getCulture();
-        $this->category = Doctrine_Core::getTable('Category')->findOneBySlugAndCulture($request['slug'], $culture)->fetchOne();
+        $this->category = Doctrine_Core::getTable('Category')->findOneByRouteAndCulture($request['route'], $culture)->fetchOne();
     }
 }
