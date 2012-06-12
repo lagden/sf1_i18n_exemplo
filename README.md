@@ -12,7 +12,7 @@ Internationalization and Localization
 
 ## Configuração do banco de dados
 
-Copie arquivo, edite-o colocando suas configurações de banco de dados e execute o bash script que irá recriar o banco de dados, carregando informações pré definidas
+Copie arquivo, edite-o colocando suas configurações de banco de dados e execute o bash script que irá recriar o banco de dados carregando informações das fixtures.
 
     cp config/databases.yml.dist config/databases.yml
     vim config/databases.yml
