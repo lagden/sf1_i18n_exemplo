@@ -4,5 +4,5 @@
 # default values
 all:
     lang:
-        pt_BR: 'Change to en'
+        pt: 'Change to en'
         en: 'Trocar para br'

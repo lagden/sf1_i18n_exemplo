@@ -37,7 +37,8 @@ all:
     # Enable the database manager
     use_database:           true
 
+    # i18n
     i18n: true
     charset: utf-8
     standard_helpers: [Partial, Cache, I18N]
-    default_culture: pt_BR
+    default_culture: pt

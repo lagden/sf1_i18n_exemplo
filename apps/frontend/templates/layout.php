@@ -10,6 +10,8 @@
     <?php include_javascripts() ?>
 </head>
 <body>
-  <?php echo $sf_content ?>
+    <?php include_partial('global/header'); ?>
+    <?php echo $sf_content ?>
+    <?php include_partial('global/footer'); ?>
 </body>
 </html>

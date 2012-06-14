@@ -19,7 +19,7 @@ class homeActions extends sfActions
         {
             if ($this->getUser()->isFirstRequest())
             {
-                $culture = $request->getPreferredCulture(array('pt_BR', 'en'));
+                $culture = $request->getPreferredCulture(array('pt', 'en'));
                 $this->getUser()->setCulture($culture);
                 $this->getUser()->isFirstRequest(false);
             }
@@ -34,7 +34,7 @@ class homeActions extends sfActions
     public function executeChangeLanguage(sfWebRequest $request)
     {
         $culture = $this->getUser()->getCulture();
-        $lang = ($culture == 'pt_BR') ? 'en' : 'pt_BR';
+        $lang = ($culture == 'pt') ? 'en' : 'pt';
         $this->getUser()->setCulture($lang);
 
         // Redireciona para a mesma url

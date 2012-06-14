@@ -3,10 +3,10 @@ homepage:
   param: { module: home, action: index }
 
 localized_homepage:
-  url:   /:sf_culture/
+  url:   /:sf_culture
   param: { module: home, action: index }
   requirements:
-    sf_culture: (?:pt_BR|en)
+    sf_culture: (?:pt|en)
 
 change_language:
   url:   /change_language/:path
@@ -21,3 +21,7 @@ categoria_show:
 produto_show:
   url:     /:sf_culture/produto/:route
   param:   { module: produto, action: show }
+
+produto_search:
+  url:   /:sf_culture/busca/:q
+  param: { module: produto, action: search, q: null }

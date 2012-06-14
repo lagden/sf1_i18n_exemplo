@@ -2,21 +2,21 @@ Category:
   video:
     route: video
     Translation:
-      pt_BR:
+      pt:
         name: Vídeo
       en:
         name: Video
   telefonia:
     route: telefonia
     Translation:
-      pt_BR:
+      pt:
         name: Telefonia
       en:
         name: Telephony
   informatica:
     route: informatica
     Translation:
-      pt_BR:
+      pt:
         name: Informática
       en:
         name: Computers
@@ -27,7 +27,7 @@ Product:
     Category: video
     route: DVD do Homem Aranha
     Translation:
-      pt_BR:
+      pt:
         name: DVD do Homem Aranha
         description: |
           Essa é uma descrição em br.
@@ -42,7 +42,7 @@ Product:
     Category: video
     route: Aparelho de DVD
     Translation:
-      pt_BR:
+      pt:
         name: Aparelho de DVD
         description: |
           Essa é uma descrição em br.
@@ -56,7 +56,7 @@ Product:
     Category: telefonia
     route: Celular do João
     Translation:
-      pt_BR:
+      pt:
         name: Celular do João
         description: |
           Essa é uma descrição bizarra em br.
@@ -70,7 +70,7 @@ Product:
     Category: informatica
     route: Disquete formatado
     Translation:
-      pt_BR:
+      pt:
         name: Disquete formatado
         description: |
           Essa é uma super descrição bacana em br.

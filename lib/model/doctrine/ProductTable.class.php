@@ -16,7 +16,7 @@ class ProductTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('Product');
     }
-    
+
     static public function getListQuery(Doctrine_Query $q = null)
     {
         if(null === $q)$q = static::getInstance()->createQuery('a');
@@ -46,4 +46,40 @@ class ProductTable extends Doctrine_Table
 
         return $q;
     }
+
+    //*
+    public function getForLuceneQuery($query, Doctrine_Query $q = null)
+    {
+        if(null === $q)$q = static::getListQuery();
+        $alias = $q->getRootAlias();
+
+        $hits = self::getLuceneIndex()->find($query);
+
+        $pks = array();
+        foreach ($hits as $hit)
+        {
+            $pks[] = $hit->pk;
+        }
+
+        if (empty($pks))
+        {
+            return array();
+        }
+
+        $q->whereIn("{$alias}.id", $pks);
+        return $q;
+    }
+
+    static public function getLuceneIndex()
+    {
+        ProjectConfiguration::registerZend();
+        if (file_exists($index = self::getLuceneIndexFile())) return Zend_Search_Lucene::open($index);
+        return Zend_Search_Lucene::create($index);
+    }
+
+    static public function getLuceneIndexFile()
+    {
+        return sfConfig::get('sf_data_dir').'/product.'.sfConfig::get('sf_environment').'.index';
+    }
+    //*/
 }

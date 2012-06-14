@@ -15,4 +15,12 @@ class produtoActions extends sfActions
         $culture = $this->getUser()->getCulture();
         $this->product = Doctrine_Core::getTable('Product')->findOneByRouteAndCulture($request['route'], $culture)->fetchOne();
     }
+
+    public function executeSearch(sfWebRequest $request)
+    {
+        $r = ($q = $request->getParameter('q',false)) ? Doctrine_Core::getTable('Product')->getForLuceneQuery($q) : false;
+        $r = ($r) ? $r->execute()->toArray() : ['none'];
+        $this->getResponse()->setContentType('application/json');
+        return $this->renderText(json_encode($r));
+    }
 }
