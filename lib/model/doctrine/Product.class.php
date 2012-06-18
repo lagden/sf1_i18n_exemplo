@@ -39,42 +39,49 @@ class Product extends BaseProduct
     public function updateLuceneIndex()
     {
         $tbl = $this->getTable();
-        $index = $tbl::getLuceneIndex();
 
-        // remove existing entries
-        foreach ($index->find('pk:'.$this->getId()) as $hit)
+        $cultures = ['pt','en'];
+        foreach ($cultures as $culture)
         {
-            $index->delete($hit->id);
+            $index = $tbl::getLuceneIndex($culture);
+
+            // remove existing entries
+            foreach ($index->find("pk:".$this->Translation[$culture]->id) as $hit)
+            {
+                $index->delete($hit->id);
+            }
+
+            $doc = new Zend_Search_Lucene_Document();
+
+            // store job primary key to identify it in the search results
+            $doc->addField(Zend_Search_Lucene_Field::Keyword("pk", $this->Translation[$culture]->id));
+
+            // index job fields
+            $doc->addField(Zend_Search_Lucene_Field::UnStored('name', $this->Translation[$culture]->name, 'utf-8'));
+            $doc->addField(Zend_Search_Lucene_Field::UnStored('description', $this->Translation[$culture]->description, 'utf-8'));
+
+            // add job to the index
+            $index->addDocument($doc);
+            $index->commit();
+            $index->optimize();
         }
-
-        // don't index expired and non-activated jobs
-        // if ($this->isExpired() || !$this->getIsActivated())
-        // {
-        //     return;
-        // }
-
-        $doc = new Zend_Search_Lucene_Document();
-
-        // store job primary key to identify it in the search results
-        $doc->addField(Zend_Search_Lucene_Field::Keyword('pk', $this->getId()));
-
-        // index job fields
-        $doc->addField(Zend_Search_Lucene_Field::UnStored('name', $this->getName(), 'utf-8'));
-        $doc->addField(Zend_Search_Lucene_Field::UnStored('description', $this->getDescription(), 'utf-8'));
-
-        // add job to the index
-        $index->addDocument($doc);
-        $index->commit();
     }
 
     public function delete(Doctrine_Connection $conn = null)
     {
         $tbl = $this->getTable();
-        $index = $tbl::getLuceneIndex();
-
-        foreach ($index->find('pk:'.$this->getId()) as $hit)
+        
+        $cultures = ['pt','en'];
+        foreach ($cultures as $culture)
         {
-            $index->delete($hit->id);
+            $index = $tbl::getLuceneIndex($culture);
+
+            foreach ($index->find("pk:".$this->Translation[$culture]->id) as $hit)
+            {
+                $index->delete($hit->id);
+            }
+
+            $index->optimize();
         }
 
         return parent::delete($conn);

@@ -3,6 +3,9 @@
 
 # default values
 all:
+    cultures:
+        - 'pt'
+        - 'en'
     lang:
         pt: 'Change to en'
         en: 'Trocar para br'

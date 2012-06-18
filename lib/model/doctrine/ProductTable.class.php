@@ -23,19 +23,18 @@ class ProductTable extends Doctrine_Table
         return $q;
     }
 
-    public function findOneBySlugAndCulture($slug, $culture = 'pt_BR', Doctrine_Query $q = null)
+    public function findByCulture($culture = 'pt', Doctrine_Query $q = null)
     {
         if(null === $q)$q = static::getListQuery();
         $alias = $q->getRootAlias();
 
         $q->leftJoin("{$alias}.Translation t")
-            ->andWhere('t.lang = ?', $culture)
-            ->andWhere('t.slug = ?', $slug);
+            ->andWhere('t.lang = ?', $culture);
 
         return $q;
     }
 
-    public function findOneByRouteAndCulture($route, $culture = 'pt_BR', Doctrine_Query $q = null)
+    public function findOneByRouteAndCulture($route, $culture = 'pt', Doctrine_Query $q = null)
     {
         if(null === $q)$q = static::getListQuery();
         $alias = $q->getRootAlias();
@@ -48,12 +47,12 @@ class ProductTable extends Doctrine_Table
     }
 
     //*
-    public function getForLuceneQuery($query, Doctrine_Query $q = null)
+    public function getForLuceneQuery($query, $culture='pt', Doctrine_Query $q = null)
     {
         if(null === $q)$q = static::getListQuery();
         $alias = $q->getRootAlias();
 
-        $hits = self::getLuceneIndex()->find($query);
+        $hits = self::getLuceneIndex($culture)->find($query);
 
         $pks = array();
         foreach ($hits as $hit)
@@ -70,16 +69,16 @@ class ProductTable extends Doctrine_Table
         return $q;
     }
 
-    static public function getLuceneIndex()
+    static public function getLuceneIndex($culture)
     {
         ProjectConfiguration::registerZend();
-        if (file_exists($index = self::getLuceneIndexFile())) return Zend_Search_Lucene::open($index);
+        if (file_exists($index = self::getLuceneIndexFile($culture))) return Zend_Search_Lucene::open($index);
         return Zend_Search_Lucene::create($index);
     }
 
-    static public function getLuceneIndexFile()
+    static public function getLuceneIndexFile($culture)
     {
-        return sfConfig::get('sf_data_dir').'/product.'.sfConfig::get('sf_environment').'.index';
+        return sfConfig::get('sf_data_dir').'/product.'.sfConfig::get('sf_environment').'.'.$culture.'.index';
     }
     //*/
 }

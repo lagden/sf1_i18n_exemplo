@@ -18,8 +18,11 @@ class produtoActions extends sfActions
 
     public function executeSearch(sfWebRequest $request)
     {
-        $r = ($q = $request->getParameter('q',false)) ? Doctrine_Core::getTable('Product')->getForLuceneQuery($q) : false;
-        $r = ($r) ? $r->execute()->toArray() : ['none'];
+        $culture = $this->getUser()->getCulture();
+        $tbl = Doctrine_Core::getTable('Product');
+        
+        $r = ($q = $request->getParameter('q',false)) ? $tbl->getForLuceneQuery($q, $culture) : false;
+        $r = ($r) ? $tbl->findByCulture($culture, $r)->execute()->toArray() : ['none'];
         $this->getResponse()->setContentType('application/json');
         return $this->renderText(json_encode($r));
     }
