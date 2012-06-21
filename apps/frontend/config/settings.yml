@@ -40,5 +40,5 @@ all:
     # i18n
     i18n: true
     charset: utf-8
-    standard_helpers: [Partial, Cache, I18N]
+    standard_helpers: [Partial, Cache, I18N, Text]
     default_culture: pt

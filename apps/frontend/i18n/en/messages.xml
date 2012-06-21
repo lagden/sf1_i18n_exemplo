@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="en" datatype="plaintext" original="messages" date="2012-06-12T08:10:51Z" product-name="messages">
+  <file source-language="EN" target-language="en" datatype="plaintext" original="messages" date="2012-06-22T00:58:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -31,6 +31,10 @@
       <trans-unit id="7">
         <source>Categorias</source>
         <target>Categories</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Sua pesquisa pelo termo "%q%" apresentou os seguintes resultados...</source>
+        <target>Your search for the word "%q%" produced the following results...</target>
       </trans-unit>
     </body>
   </file>

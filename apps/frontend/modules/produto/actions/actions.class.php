@@ -23,10 +23,10 @@ class produtoActions extends sfActions
 
         $culture = $this->getUser()->getCulture();
         $tbl = Doctrine_Core::getTable('Product');
-        
-        $r = ($q = $request->getParameter('q',false)) ? SearchLucene::getLuceneQuery($q, $tbl, $culture) : false;
-        $r = ($r) ? $tbl->findByCulture($culture, $r)->execute()->toArray() : ['none'];
 
+        $r = ($q = $request->getParameter('q',false)) ? SearchLucene::getLuceneQuery($tbl, $q, $culture) : false;
+        $r = ($r) ? $tbl->findByCulture($culture, $r)->execute()->toArray() : ['none'];
+        
         $this->getResponse()->setContentType('application/json');
         return $this->renderText(json_encode($r));
     }

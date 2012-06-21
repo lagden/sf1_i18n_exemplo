@@ -14,9 +14,12 @@ Category:
           fields: [name]
           uniqueBy: [lang, name]
           canUpdate: true
+        SearchLucene:
+          fields: [name, description]
   columns:
     route: { type: string(255), notnull: true }
     name: { type: string(255), notnull: true }
+    description: clob
 
 Product:
   actAs:

@@ -18,14 +18,35 @@ categoria_show:
   requirements:
     sf_format: (?:html|json)
 
+# Produto
 produto_show:
   url:     /:sf_culture/produto/:route
   param:   { module: produto, action: show }
 
 produto_search:
-  url:   /:sf_culture/busca/:q
+  url:   /:sf_culture/produto/busca/:q
   param: { module: produto, action: search, q: null }
 
 produto_fill:
   url:   /produto/fill
   param: { module: produto, action: fixtures}
+
+
+# Busca
+busca:
+  url: /:sf_culture/busca
+  param: { module: busca, action: index }
+
+# Busca Filtro
+busca_filtro:
+  url: /:sf_culture/busca/filtro
+  param: { module: busca, action: filtro }
+  requirements:
+    sf_method: [POST]
+
+# Busca Paginacao
+busca_filtro_page:
+  url: /:sf_culture/busca/pagina/:pagina
+  param: { module: busca, action: index }
+  requirements:
+    sf_method: [GET]

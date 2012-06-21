@@ -6,4 +6,4 @@
 <?php else: ?>
     :(
 <?php endif ?>
-<?php include_partial('global/lang'); ?>
+

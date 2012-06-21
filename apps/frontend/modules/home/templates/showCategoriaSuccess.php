@@ -13,5 +13,3 @@
 <?php else: ?>
     <?php echo __('Categoria não encontrada'); ?>
 <?php endif ?>
-
-<?php include_partial('global/lang'); ?>
