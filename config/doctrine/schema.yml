@@ -34,6 +34,8 @@ Product:
           fields: [name]
           uniqueBy: [lang, name]
           canUpdate: true
+        SearchLucene:
+          fields: [name, description, price]
   columns:
     route: { type: string(255), notnull: true }
     name: { type: string(255), notnull: true }

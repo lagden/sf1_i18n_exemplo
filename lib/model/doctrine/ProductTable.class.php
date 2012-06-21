@@ -45,40 +45,5 @@ class ProductTable extends Doctrine_Table
 
         return $q;
     }
-
-    //*
-    public function getForLuceneQuery($query, $culture='pt', Doctrine_Query $q = null)
-    {
-        if(null === $q)$q = static::getListQuery();
-        $alias = $q->getRootAlias();
-
-        $hits = self::getLuceneIndex($culture)->find($query);
-
-        $pks = array();
-        foreach ($hits as $hit)
-        {
-            $pks[] = $hit->pk;
-        }
-
-        if (empty($pks))
-        {
-            return array();
-        }
-
-        $q->whereIn("{$alias}.id", $pks);
-        return $q;
-    }
-
-    static public function getLuceneIndex($culture)
-    {
-        ProjectConfiguration::registerZend();
-        if (file_exists($index = self::getLuceneIndexFile($culture))) return Zend_Search_Lucene::open($index);
-        return Zend_Search_Lucene::create($index);
-    }
-
-    static public function getLuceneIndexFile($culture)
-    {
-        return sfConfig::get('sf_data_dir').'/product.'.sfConfig::get('sf_environment').'.'.$culture.'.index';
-    }
-    //*/
+    
 }

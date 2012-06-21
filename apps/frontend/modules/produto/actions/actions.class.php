@@ -18,11 +18,15 @@ class produtoActions extends sfActions
 
     public function executeSearch(sfWebRequest $request)
     {
+        // @if tem i18n configurado no template do modelo da tabela, então use o método estático: SearchLucene::getLuceneQuery
+        // @else $tbl->getLuceneQuery
+
         $culture = $this->getUser()->getCulture();
         $tbl = Doctrine_Core::getTable('Product');
         
-        $r = ($q = $request->getParameter('q',false)) ? $tbl->getForLuceneQuery($q, $culture) : false;
+        $r = ($q = $request->getParameter('q',false)) ? SearchLucene::getLuceneQuery($q, $tbl, $culture) : false;
         $r = ($r) ? $tbl->findByCulture($culture, $r)->execute()->toArray() : ['none'];
+        
         $this->getResponse()->setContentType('application/json');
         return $this->renderText(json_encode($r));
     }
