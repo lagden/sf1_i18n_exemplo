@@ -25,3 +25,7 @@ produto_show:
 produto_search:
   url:   /:sf_culture/busca/:q
   param: { module: produto, action: search, q: null }
+
+produto_fill:
+  url:   /produto/fill
+  param: { module: produto, action: fixtures}

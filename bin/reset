@@ -9,10 +9,10 @@ CURR_FOLDER=`pwd`
 # Go
 cd $CURR_FOLDER
 
-read -s -n1 -p "Isso irá apagar todos os dados!! Tem certeza? (y/n): " keypress
+read -s -n1 -p "Isso irá apagar todos os dados!! Tem certeza? (s/n): " keypress
 echo;
 
-if [[ $keypress == "y" ]]; then
+if [[ $keypress == "s" ]]; then
     `rm -rf web/uploads/*`
     `rm -rf web/tiny/*`
     `rm -rf web/test/*`
