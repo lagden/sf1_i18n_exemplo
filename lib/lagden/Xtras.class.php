@@ -19,9 +19,9 @@ class Xtras
         return $pager;
     }
 
-    static public function getSearchTerm($field='q', $cookie = 'cookie_search_term')
+    static public function getSearchTerm($cookie='cookie_search_term', $field='q')
     {
-        $term = static::get('cookie_search_term', array("{$field}" => ''));
+        $term = static::get($cookie, array("{$field}" => ''));
         $term = isset($term[$field]) ? $term[$field] : '';
         return $term;
     }

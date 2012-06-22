@@ -31,7 +31,9 @@ produto_fill:
   url:   /produto/fill
   param: { module: produto, action: fixtures}
 
-# Busca
+#########
+# Busca #
+#########
 busca:
   url: /:sf_culture/busca
   param: { module: busca, action: index }
@@ -47,5 +49,26 @@ busca_filtro:
 busca_filtro_page:
   url: /:sf_culture/busca/pagina/:pagina
   param: { module: busca, action: index }
+  requirements:
+    sf_method: [GET]
+
+################
+# Full Busca #
+################
+full_busca:
+  url: /:sf_culture/full/busca
+  param: { module: full, action: index }
+
+# full Busca Filtro
+full_busca_filtro:
+  url: /:sf_culture/full/busca/filtro
+  param: { module: full, action: filtro }
+  requirements:
+    sf_method: [POST]
+
+# full Busca Paginacao
+full_busca_filtro_page:
+  url: /:sf_culture/full/busca/pagina/:pagina
+  param: { module: full, action: index }
   requirements:
     sf_method: [GET]
