@@ -13,7 +13,7 @@ class produtoActions extends sfActions
     public function executeShow(sfWebRequest $request)
     {
         $culture = $this->getUser()->getCulture();
-        $this->product = Doctrine_Core::getTable('Product')->findOneByRouteAndCulture($request['route'], $culture)->fetchOne();
+        $this->product = Doctrine_Core::getTable('Product')->getOneByRouteAndCulture($request['route'], $culture)->fetchOne();
     }
 
     public function executeSearch(sfWebRequest $request)
@@ -25,7 +25,7 @@ class produtoActions extends sfActions
         $tbl = Doctrine_Core::getTable('Product');
 
         $r = ($q = $request->getParameter('q',false)) ? SearchLucene::getLuceneQuery($tbl, $q, $culture) : false;
-        $r = ($r) ? $tbl->findByCulture($culture, $r)->execute()->toArray() : ['none'];
+        $r = ($r) ? $tbl->getByCulture($culture, $r)->execute()->toArray() : ['none'];
         
         $this->getResponse()->setContentType('application/json');
         return $this->renderText(json_encode($r));

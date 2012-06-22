@@ -27,7 +27,7 @@ class homeActions extends sfActions
             $this->redirect('localized_homepage');
         }
 
-        $this->categories = Doctrine_Core::getTable('Category')->findAll($culture)->execute();
+        $this->categories = Doctrine_Core::getTable('Category')->getByCulture($culture)->execute();
     }
 
     // Troca o idioma
@@ -50,6 +50,6 @@ class homeActions extends sfActions
     public function executeShowCategoria(sfWebRequest $request)
     {
         $culture = $this->getUser()->getCulture();
-        $this->category = Doctrine_Core::getTable('Category')->findOneByRouteAndCulture($request['route'], $culture)->fetchOne();
+        $this->category = Doctrine_Core::getTable('Category')->getOneByRouteAndCulture($request['route'], $culture)->fetchOne();
     }
 }

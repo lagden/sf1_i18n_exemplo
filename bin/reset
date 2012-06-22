@@ -19,6 +19,11 @@ if [[ $keypress == "s" ]]; then
     `rm -rf log/*`
     `rm -rf cache/*`
     `rm -rf tmp/*`
+
+    if [ -d "data/lucene" ]; then
+        `rm -rf data/lucene/*`
+    fi
+
     echo "Folders are clean."
 
     CMD="./symfony"

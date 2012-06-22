@@ -1,5 +1,6 @@
 Category:
   actAs:
+    CommonQuery: ~
     Sluggable:
           fields: [route]
           name:  slug_route
@@ -15,14 +16,14 @@ Category:
           uniqueBy: [lang, name]
           canUpdate: true
         SearchLucene:
-          fields: [name, description]
+          fields: [name]
   columns:
     route: { type: string(255), notnull: true }
     name: { type: string(255), notnull: true }
-    description: clob
 
 Product:
   actAs:
+    CommonQuery: ~
     Sluggable:
           fields: [route]
           name:  slug_route
