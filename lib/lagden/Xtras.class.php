@@ -19,6 +19,16 @@ class Xtras
         return $pager;
     }
 
+    static public function getZendPager($result, $request, $maxPerPage)
+    {
+        ProjectConfiguration::registerZend();
+        $pagina = $request->getParameter('pagina',1);
+        $pager = Zend_Paginator::factory($result);
+        $pager->setCurrentPageNumber($pagina);
+        $pager->setItemCountPerPage($maxPerPage);
+        return $pager;
+    }
+
     static public function getSearchTerm($cookie='cookie_search_term', $field='q')
     {
         $term = static::get($cookie, array("{$field}" => ''));
@@ -42,6 +52,23 @@ class Xtras
             $q = $tbl->getLuceneQuery($term, $q);
         }
         return $q;
+    }
+
+    // Retorna um Array - @if true {query e os pks} else {vazio}
+    static public function getLuceneQueryAndPks($tbl, $term, $culture = null)
+    {
+        $q = $tbl::getListQuery();
+        $alias = $q->getRootAlias();
+
+        if($tbl->hasRelation('Translation'))
+        {
+            $q->leftJoin("{$alias}.Translation t")->andWhere('t.lang = ?', $culture);
+        }
+        else
+        {
+            $culture = null;
+        }
+        return SearchLucene::getLuceneQueryAndPks($tbl, $term, $culture, $q);
     }
 
     static public function get($cookie='cookie_site_default')

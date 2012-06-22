@@ -16,6 +16,12 @@ class SearchLucene extends Doctrine_Template
 
     static public function getLuceneQuery(Doctrine_Table $tbl, $term, $culture = null, Doctrine_Query $q = null)
     {
+        $r = static::getLuceneQueryAndPks($tbl, $term, $culture, $q);
+        return isset($r['query']) ? $r['query'] : array();
+    }
+
+    static public function getLuceneQueryAndPks(Doctrine_Table $tbl, $term, $culture = null, Doctrine_Query $q = null)
+    {
         if(null === $q) $q = $tbl->createQuery('a');
         $alias = $q->getRootAlias();
 
@@ -24,7 +30,7 @@ class SearchLucene extends Doctrine_Template
         if (empty($pks)) return array();
         else $q->andWhereIn("{$alias}.id", array_keys($pks));
 
-        return $q;
+        return array('query'=>$q,'pks'=>$pks);
     }
 
     static public function getLucenePks(Doctrine_Table $tbl, $term, $culture = null)

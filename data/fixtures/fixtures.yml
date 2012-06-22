@@ -20,6 +20,13 @@ Category:
         name: Informática
       en:
         name: Computers
+  dvd:
+    route: dvd
+    Translation:
+      pt:
+        name: DVD
+      en:
+        name: DVD
 
 Product:
   -

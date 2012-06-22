@@ -1,7 +1,7 @@
 <?php
 
 /**
- * global actions.
+ * full actions.
  *
  * @package    sfI18nSample
  * @subpackage full
@@ -12,10 +12,16 @@ class fullActions extends sfActions
 {
     public function executeIndex(sfWebRequest $request)
     {
-        $entity = $request->getParameter('entity','Product');
-        
+        // Coloques as entidades + rotas que irão aparecer na busca
+        $entities = array();
+        $entities[0]['entity'] = 'Product'; 
+        $entities[0]['rota'] = 'produto_show';
+
+        $entities[1]['entity'] = 'Category'; 
+        $entities[1]['rota'] = 'categoria_show';
+
         $this->busca = Xtras::getSearchTerm('cookie_search_full_term');
-        $this->pager = static::busca($request, $entity);
+        $this->pager = static::busca($request, $entities);
     }
     
     public function executeFiltro(sfWebRequest $request)
@@ -31,7 +37,7 @@ class fullActions extends sfActions
     }
     
     // Busca usando Search Lucene
-    static private function busca($request, $entity)
+    static private function busca($request, $entities)
     {
         // Pega o idioma
         $culture = sfContext::getInstance()->getUser()->getCulture();
@@ -39,16 +45,50 @@ class fullActions extends sfActions
         // Pega o termo gravado no cookie
         $term = Xtras::getSearchTerm('cookie_search_full_term');
 
-        // Monta query
-        $query = Xtras::getQuery(Doctrine_Core::getTable($entity), $term, $culture);
-        if(empty($query)) return $query;
-        else
-        {
-            // Total de itens por página
-            $maxPerPage = 5;
+        // Limpa o cache (for debug)
+        // FileCache::cleanCache();
 
-            // Retorna o objeto sfDoctrinePager
-            return Xtras::getPager($query, $entity, $request, $maxPerPage);
+        // Verifica se a busca está em cache
+        $cacheFile = md5("{$term}.{$culture}");
+        $final = FileCache::getCache($cacheFile);
+
+        if(!$final)
+        {
+            $cc = 0;
+            $final = array();
+            foreach ($entities as $k => $entity)
+            {
+                $result = Xtras::getLuceneQueryAndPks(Doctrine_Core::getTable($entity['entity']), $term, $culture);
+                if (empty($result)) unset($entities[$k]);
+                else
+                {
+                    foreach ($result['query']->execute() as $item)
+                    {
+                        $final[$cc]['entity'] = $entity['entity'];
+                        $final[$cc]['rota'] = $entity['rota'];
+                        $final[$cc]['score'] = $result['pks'][$item->id]['score'];
+                        $final[$cc]['id'] = $item->id;
+                        $final[$cc]['route'] = $item->slug_route;
+                        $final[$cc]['name'] = $item->name;
+                        try {
+                            $final[$cc]['description'] = $item->description;
+                        }
+                        catch (Exception $e) {
+                            $final[$cc]['description'] = null;
+                        }
+                        $cc++;
+                    }
+                }
+            }
+            usort($final, "cmp");
+            FileCache::setCache($cacheFile, $final);
         }
+        return Xtras::getZendPager($final,$request,10);
     }
+}
+
+function cmp($a, $b)
+{
+    if ($a["score"] == $b["score"]) return 0;
+    return ($a["score"] > $b["score"]) ? -1 : 1;
 }

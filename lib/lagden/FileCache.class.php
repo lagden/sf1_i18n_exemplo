@@ -15,21 +15,27 @@ class FileCache
 
     static public function setCache($name, $value, $lt=3600)
     {
-        $file_cache = static::getInstance();
-        return $file_cache->set($name, serialize($value), $lt);
+        $cache = static::getInstance();
+        return $cache->set($name, serialize($value), $lt);
     }
 
     static public function getCache($name)
     {
-        $file_cache = static::getInstance();
-        if ($has = $file_cache->has($name))
+        $cache = static::getInstance();
+        if ($cache->has($name))
         {
-            $cached = $file_cache->get($name);
+            $cached = $cache->get($name);
             if (!empty($cached))
             {
                 return unserialize($cached);
             }
         }
-        return $has;
+        return false;
+    }
+
+    static public function cleanCache($mode = sfCache::ALL)
+    {
+        $cache = static::getInstance();
+        return $cache->clean($mode);
     }
 }
