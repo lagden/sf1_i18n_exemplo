@@ -19,15 +19,20 @@ class SearchLucene extends Doctrine_Template
         if(null === $q) $q = $tbl->createQuery('a');
         $alias = $q->getRootAlias();
 
+        $pks = static::getLucenePks($tbl, $term, $culture);
+
+        if (empty($pks)) return array();
+        else $q->andWhereIn("{$alias}.id", array_keys($pks));
+
+        return $q;
+    }
+
+    static public function getLucenePks(Doctrine_Table $tbl, $term, $culture = null)
+    {
         $index = SearchLucenePlugin::getLuceneIndex($tbl->getTableName(),$culture);
         $hits = $index->find($term);
         $pks = array();
-
-        foreach ($hits as $hit) $pks[] = $hit->pk;
-
-        if (empty($pks)) $q->andWhere("{$alias}.id = ?", 'empty_search_zend_lucene'); // return array();
-        else $q->andWhereIn("{$alias}.id", $pks);
-
-        return $q;
+        foreach ($hits as $hit) $pks[$hit->pk]['score'] = $hit->score;
+        return $pks;
     }
 }

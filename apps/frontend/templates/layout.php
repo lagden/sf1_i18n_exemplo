@@ -8,6 +8,47 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
+
+    <style type="text/css">
+        .pagination {
+          text-align: center;
+          color: #666666;
+        }
+        .pagination span {
+          display: none;
+        }
+        .pagination button.paginacaoUI {
+          font-size: 1em;
+          -moz-transition-property: background-color;
+          -webkit-transition-property: background-color;
+          -o-transition-property: background-color;
+          transition-property: background-color;
+          -moz-transition-duration: 0.45s;
+          -webkit-transition-duration: 0.45s;
+          -o-transition-duration: 0.45s;
+          transition-duration: 0.45s;
+          border: 0;
+          outline: none;
+          background: none;
+          padding: .2em;
+          margin-right: .1em;
+          color: #666666;
+          font-weight: bold;
+          width: 1.5em;
+          height: 1.5em;
+        }
+        .pagination button.paginacaoUI:hover {
+          background-color: #176597;
+          color: #FFF;
+        }
+        .pagination button.paginacaoSelecionado {
+          color: red;
+        }
+        .pagination .paginacaoDisabled {
+          opacity: 0.4;
+          filter: alpha(opacity=40);
+        }
+    </style>
 </head>
 <body>
     <?php include_partial('global/header'); ?>

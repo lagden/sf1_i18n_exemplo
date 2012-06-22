@@ -41,11 +41,14 @@ class buscaActions extends sfActions
 
         // Monta query
         $query = Xtras::getQuery(Doctrine_Core::getTable($entity), $term, $culture);
+        if(empty($query)) return $query;
+        else
+        {
+            // Total de itens por página
+            $maxPerPage = 5;
 
-        // Total de itens por página
-        $maxPerPage = 5;
-
-        // Retorna o objeto sfDoctrinePager
-        return Xtras::getPager($query, $entity, $request, $maxPerPage);
+            // Retorna o objeto sfDoctrinePager
+            return Xtras::getPager($query, $entity, $request, $maxPerPage);
+        }
     }
 }

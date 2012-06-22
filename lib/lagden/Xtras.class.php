@@ -26,6 +26,7 @@ class Xtras
         return $term;
     }
 
+    // Retorna um Array vazio ou um Doctrine_Query
     static public function getQuery($tbl, $term, $culture = null)
     {
         $q = $tbl::getListQuery();
@@ -33,9 +34,8 @@ class Xtras
 
         if($tbl->hasRelation('Translation'))
         {
+            $q->leftJoin("{$alias}.Translation t")->andWhere('t.lang = ?', $culture);
             $q = SearchLucene::getLuceneQuery($tbl, $term, $culture, $q);
-            $q->leftJoin("{$alias}.Translation t")
-              ->andWhere('t.lang = ?', $culture);
         }
         else
         {
