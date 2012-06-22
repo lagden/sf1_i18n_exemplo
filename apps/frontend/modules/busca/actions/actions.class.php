@@ -12,8 +12,10 @@ class buscaActions extends sfActions
 {
     public function executeIndex(sfWebRequest $request)
     {
+        $entity = $request->getParameter('entity','Product');
+        
         $this->busca = Xtras::getSearchTerm();
-        $this->pager = static::busca($request, "Product");
+        $this->pager = static::busca($request, $entity);
     }
     
     public function executeFiltro(sfWebRequest $request)
@@ -22,13 +24,13 @@ class buscaActions extends sfActions
         $filter = new SearchFormFilter();
         $filterParams = $request->getParameter($filter->getName());
         
-        // Seta cookie
+        // Seta cookie do termo postado no filtro
         Xtras::set($filterParams,'cookie_search_term');
 
         $this->redirect('busca');
     }
     
-    // Usando Search Lucene - com ou sem i18n
+    // Busca usando Search Lucene
     static private function busca($request, $entity)
     {
         // Pega o idioma
@@ -44,6 +46,6 @@ class buscaActions extends sfActions
         $maxPerPage = 5;
 
         // Retorna o objeto sfDoctrinePager
-        return Xtras::getPager($query, $request, $maxPerPage);
+        return Xtras::getPager($query, $entity, $request, $maxPerPage);
     }
 }

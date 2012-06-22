@@ -8,11 +8,10 @@
  **/
 class Xtras
 {
-    // sfDoctrinePager
-    static public function getPager($query, $request, $maxPerPage)
+    static public function getPager($query, $entity, $request, $maxPerPage)
     {
         $pagina = $request->getParameter('pagina',1);
-        $pager = new sfDoctrinePager('Product');
+        $pager = new sfDoctrinePager($entity);
         $pager->setQuery($query);
         $pager->setPage($pagina);
         $pager->setMaxPerPage($maxPerPage);
@@ -32,14 +31,12 @@ class Xtras
         $q = $tbl::getListQuery();
         $alias = $q->getRootAlias();
 
-        // Com i18n
         if($tbl->hasRelation('Translation'))
         {
             $q = SearchLucene::getLuceneQuery($tbl, $term, $culture, $q);
             $q->leftJoin("{$alias}.Translation t")
               ->andWhere('t.lang = ?', $culture);
         }
-        // Sem i18n
         else
         {
             $q = $tbl->getLuceneQuery($term, $q);

@@ -31,7 +31,6 @@ produto_fill:
   url:   /produto/fill
   param: { module: produto, action: fixtures}
 
-
 # Busca
 busca:
   url: /:sf_culture/busca

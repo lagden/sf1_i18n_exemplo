@@ -10,7 +10,12 @@
         <?php foreach ($results as $result): ?>
             <div class="itens">
                 <h3><?php echo $result->name ?></h3>
-                <p><?php echo $result->description ?></p>
+                <p>
+                    <?php
+                    try { echo "{$result->description}</p>"; }
+                    catch (Exception $e) { echo __("Sem descrição"); }
+                    ?>
+                </p>
             </div>
         <?php endforeach ?>
     <?php endif ?>
