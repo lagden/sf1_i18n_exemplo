@@ -5,7 +5,7 @@ sfCoreAutoload::register();
 
 class ProjectConfiguration extends sfProjectConfiguration
 {
-    // Zend Lucene
+    // Zend Framework Class
     static protected $zendLoaded = false;
 
     public function setup()
@@ -13,7 +13,7 @@ class ProjectConfiguration extends sfProjectConfiguration
         $this->enablePlugins('sfDoctrinePlugin');
     }
 
-    // Zend Lucene
+    // Zend Framework Class
     static public function registerZend()
     {
         if (self::$zendLoaded) return;

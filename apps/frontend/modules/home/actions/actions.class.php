@@ -27,7 +27,19 @@ class homeActions extends sfActions
             $this->redirect('localized_homepage');
         }
 
-        $this->categories = Doctrine_Core::getTable('Category')->getByCulture($culture)->execute();
+        // Cache teste
+        $cache = FileCache::getCache("home.index.categories.{$culture}");
+        if($cache)
+        {
+            var_dump('from cache');
+            $this->categories = $cache;
+        }
+        else
+        {
+            var_dump('no cache');
+            $this->categories = Doctrine_Core::getTable('Category')->getByCulture($culture)->execute();
+            FileCache::setCache("home.index.categories.{$culture}", $this->categories);
+        }
     }
 
     // Troca o idioma
