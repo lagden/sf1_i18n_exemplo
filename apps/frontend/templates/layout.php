@@ -10,43 +10,44 @@
     <?php include_javascripts() ?>
 
     <style type="text/css">
+        body{
+          font-size: 100%;
+          font-family: Helvetica, sans-serif;
+        }
+        .item:nth-child(odd)
+        {
+          padding: 1em;
+          background-color: #f1f1f1;
+        }
         .pagination {
           text-align: center;
-          color: #666666;
+          color: #999;
         }
         .pagination span {
           display: none;
         }
         .pagination button.paginacaoUI {
-          font-size: 1em;
-          -moz-transition-property: background-color;
-          -webkit-transition-property: background-color;
-          -o-transition-property: background-color;
-          transition-property: background-color;
-          -moz-transition-duration: 0.45s;
-          -webkit-transition-duration: 0.45s;
-          -o-transition-duration: 0.45s;
-          transition-duration: 0.45s;
+          font-size: 1rem;
           border: 0;
           outline: none;
           background: none;
           padding: .2em;
           margin-right: .1em;
-          color: #666666;
+          color: #999;
           font-weight: bold;
           width: 1.5em;
           height: 1.5em;
         }
         .pagination button.paginacaoUI:hover {
-          background-color: #176597;
+          background-color: #333;
           color: #FFF;
         }
         .pagination button.paginacaoSelecionado {
           color: red;
         }
         .pagination .paginacaoDisabled {
-          opacity: 0.4;
-          filter: alpha(opacity=40);
+          opacity: 0.3;
+          filter: alpha(opacity=30);
         }
     </style>
 </head>

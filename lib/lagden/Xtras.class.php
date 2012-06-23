@@ -8,6 +8,7 @@
  **/
 class Xtras
 {
+    // Return sfDoctrinePager
     static public function getPager($query, $entity, $request, $maxPerPage)
     {
         $pagina = $request->getParameter('pagina',1);
@@ -19,6 +20,7 @@ class Xtras
         return $pager;
     }
 
+    // Return Zend_Paginator
     static public function getZendPager($result, $request, $maxPerPage)
     {
         ProjectConfiguration::registerZend();
@@ -29,14 +31,15 @@ class Xtras
         return $pager;
     }
 
-    static public function getSearchTerm($cookie='cookie_search_term', $field='q')
+    // Return String
+    static public function getSearchTerm($name='name_search_term', $field='q')
     {
-        $term = static::get($cookie, array("{$field}" => ''));
+        $term = static::get($name, array("{$field}" => ''));
         $term = isset($term[$field]) ? $term[$field] : '';
         return $term;
     }
 
-    // Retorna um Array vazio ou um Doctrine_Query
+    // Return @if true {Doctrine_Query} else {Empty Array}
     static public function getQuery($tbl, $term, $culture = null)
     {
         $q = $tbl::getListQuery();
@@ -48,36 +51,34 @@ class Xtras
             $q = SearchLucene::getLuceneQuery($tbl, $term, $culture, $q);
         }
         else
-        {
             $q = $tbl->getLuceneQuery($term, $q);
-        }
+        
         return $q;
     }
 
-    // Retorna um Array - @if true {query e os pks} else {vazio}
+    // Retorn Array - @if true {query and pks} else {empty}
     static public function getLuceneQueryAndPks($tbl, $term, $culture = null)
     {
         $q = $tbl::getListQuery();
         $alias = $q->getRootAlias();
 
         if($tbl->hasRelation('Translation'))
-        {
             $q->leftJoin("{$alias}.Translation t")->andWhere('t.lang = ?', $culture);
-        }
         else
-        {
             $culture = null;
-        }
+
         return SearchLucene::getLuceneQueryAndPks($tbl, $term, $culture, $q);
     }
 
-    static public function get($cookie='cookie_site_default')
+    // Get
+    static public function get($name='default_data', $default=array())
     {
-        return sfContext::getInstance()->getUser()->getAttribute($cookie,array());
+        return sfContext::getInstance()->getUser()->getAttribute($name, $default);
     }
 
-    static public function set($filters,$cookie='cookie_site_default')
+    // Set
+    static public function set($filters,$name='default_data')
     {
-        return sfContext::getInstance()->getUser()->setAttribute($cookie, $filters);
+        return sfContext::getInstance()->getUser()->setAttribute($name, $filters);
     }
 }

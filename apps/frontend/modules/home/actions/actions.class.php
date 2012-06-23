@@ -30,13 +30,9 @@ class homeActions extends sfActions
         // Cache teste
         $cache = FileCache::getCache("home.index.categories.{$culture}");
         if($cache)
-        {
-            var_dump('from cache');
             $this->categories = $cache;
-        }
         else
         {
-            var_dump('no cache');
             $this->categories = Doctrine_Core::getTable('Category')->getByCulture($culture)->execute();
             FileCache::setCache("home.index.categories.{$culture}", $this->categories);
         }

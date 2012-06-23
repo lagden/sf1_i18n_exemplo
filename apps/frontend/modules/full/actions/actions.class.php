@@ -48,10 +48,11 @@ class fullActions extends sfActions
         // Limpa o cache (for debug)
         // FileCache::cleanCache();
 
-        // Verifica se a busca está em cache
+        // Verifica se o resultado da busca está cacheado
         $cacheFile = md5("{$term}.{$culture}");
         $final = FileCache::getCache($cacheFile);
 
+        // Constrói o resultado e grava no cache
         if(!$final)
         {
             $cc = 0;
@@ -83,7 +84,8 @@ class fullActions extends sfActions
             usort($final, "cmp");
             FileCache::setCache($cacheFile, $final);
         }
-        return Xtras::getZendPager($final,$request,10);
+        $maxPerPage = 5;
+        return Xtras::getZendPager($final, $request, $maxPerPage);
     }
 }
 
