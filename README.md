@@ -22,13 +22,7 @@ Copie arquivo, edite-o colocando suas configurações de banco de dados e execut
 
 ---
 
-### Adicionado a busca do Zend Search Lucene
+### Zend Search Lucene
 
-Exemplo usando as fixtures do projeto:
-
-`http://seu.host/frontend_dev.php/en/busca/player`
-`http://seu.host/frontend_dev.php/pt/busca/player`
-
-`http://seu.host/frontend_dev.php/pt/busca/aranha`
-`http://seu.host/frontend_dev.php/en/busca/aranha`
+`TODO: Fazer explicação do behavior`
 
