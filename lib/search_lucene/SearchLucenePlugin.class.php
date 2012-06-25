@@ -57,7 +57,7 @@ class SearchLucenePlugin
     // return culture from record
     static private function i18n($record)
     {
-        $lang = $record->getTable()->getFieldName('lang');
+        $lang = $record->getTable()->hasField('lang');
         return ($record->$lang) ? $record->$lang : null;
     }
 }
