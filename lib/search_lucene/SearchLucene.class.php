@@ -5,7 +5,12 @@ class SearchLucene extends Doctrine_Template
 
     public function setTableDefinition()
     {
-        if (empty($this->_options['fields'])) throw new Doctrine_Table_Exception("SearchLucene: The option 'fields' must be defined");
+        if (empty($this->_options['fields']))
+        {
+            $this->hasColumn('name', 'string', 255);
+            $this->hasColumn('description', 'clob');
+            $this->_options['fields'] = array('name','description');
+        }
         $this->addListener(new SearchLuceneListener($this->_options));
     }
 

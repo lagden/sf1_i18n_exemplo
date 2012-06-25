@@ -8,15 +8,14 @@ Category:
           canUpdate: true
     Timestampable: ~
     I18n:
-      fields: [name, description]
+      fields: [name]
       length: 5
       actAs:
         Sluggable:
           fields: [name]
           uniqueBy: [lang, name]
           canUpdate: true
-        SearchLucene:
-          fields: [name]
+        SearchLucene: ~
   columns:
     route: { type: string(255), notnull: true }
     name: { type: string(255), notnull: true }
