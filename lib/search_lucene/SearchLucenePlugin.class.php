@@ -58,6 +58,6 @@ class SearchLucenePlugin
     static private function i18n($record)
     {
         $lang = $record->getTable()->hasField('lang');
-        return ($record->$lang) ? $record->$lang : null;
+        return ($lang) ? $record->$lang : null;
     }
 }
